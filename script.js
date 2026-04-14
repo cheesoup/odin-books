@@ -1,7 +1,12 @@
-// https://www.theodinproject.com/lessons/node-path-javascript-object-constructors
-
 const myLibrary = [];
 const tbody = document.querySelector("tbody");
+const form = document.querySelector("form#addBook");
+
+form.addEventListener('submit', function(e) {
+	e.preventDefault();
+	const data = new FormData(form);
+	addBook(data.get("title"), data.get("author"), data.get("pages"), (data.get("read") === "on") ? true : false);
+});
 
 function Book(title, author, pages, beenRead) {
 	this.title = title;
@@ -11,14 +16,21 @@ function Book(title, author, pages, beenRead) {
 	this.id = crypto.randomUUID();
 	
 	this.info = function() {
-	  let beenReadStr = (this.beenRead) ? "Read" : "Not Read";
-	  return `${this.title} by ${this.author}. ${this.pages} pages. ${beenReadStr}. ${this.id}`
+		let beenReadStr = (this.beenRead) ? "Read" : "Not Read";
+		return `${this.title} by ${this.author}. ${this.pages} pages. ${beenReadStr}. ${this.id}`
 	}
 }
 
 function addBook (title, author, pages, read) {
 	const book = new Book(title, author, pages, read);
 	myLibrary.push(book);
+	displayBook(book);
+}
+
+function removeBook(id) {
+	// find entry in myLibrary with matching id value and splice it out
+	myLibrary.splice(myLibrary.findIndex((b) => b.id === id, 1));
+	document.querySelector(`#${id}`).remove(); // remove from table
 }
 
 function displayBook(book) {
@@ -42,11 +54,6 @@ function displayBook(book) {
 	pages.textContent = `${book.pages}`;
 	row.appendChild(pages);
 
-	// generate id td
-	const id = document.createElement("td");
-	id.textContent = `${book.id}`;
-	row.appendChild(id);
-
 	// generate read status td
 	const read = document.createElement("td");
 	read.textContent = `${book.beenRead}`;
@@ -56,14 +63,7 @@ function displayBook(book) {
 	const remove = document.createElement("td");
 	const removeButton = document.createElement("button");
 	removeButton.textContent = "Delete";
-	removeButton.addEventListener("click", () => {
-		// find parent element (closest row)
-		const pa = removeButton.closest("tr");
-		// find entry in myLibrary which matches parent id attribute and splice it out
-		myLibrary.splice(myLibrary.findIndex((b) => b.id === pa.getAttribute("id")), 1);
-		// remove parent element
-		pa.remove();
-	});
+	removeButton.addEventListener("click", () => removeBook(removeButton.closest("tr").getAttribute("id")));
 	remove.appendChild(removeButton);
 	row.appendChild(remove);
 
@@ -74,7 +74,3 @@ function displayBook(book) {
 addBook("The Fellowship of the Ring", "J.R.R. Tolkien", 423, false);
 addBook("The Two Towers", "J.R.R. Tolkien", 352, false);
 addBook("Return of the King", "J.R.R. Tolkien", 416, false);
-
-for (let book of myLibrary) {
-	displayBook(book);
-}

@@ -30,3 +30,24 @@ tr:nth-child(even) td {
 tr:nth-child(odd) td {
 	background-color: rgb(245 245 245);
 }
+
+dialog {
+	margin: 35vh auto;
+}
+
+form#addBook {
+/*	display: none;*/
+	display: grid;
+	grid-template-columns: 12ch 12ch;
+	gap: 10px;
+}
+
+form#addBook > * {
+	grid-column: span 2;
+}
+
+form#addBook label[for="read"], 
+form#addBook input[id="read"],
+form#addBook button {
+	grid-column: span 1;
+}	
