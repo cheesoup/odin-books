@@ -1,12 +1,12 @@
 const lib = {};
 const statusEnum = [ "Planned", "Reading", "Completed" ];
 
-function Book(title, author, pages, readStatus, id) {
+function Book(title, author, pages, readStatus, hash) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
 	this.readStatus = readStatus;
-	this.row = appendRow(id);
+	this.row = appendRow(hash);
 
 	this.update = () => {
 		this.row.querySelector(".title").textContent = this.title;
@@ -18,16 +18,16 @@ function Book(title, author, pages, readStatus, id) {
 }
 
 function addBook (title, author, pages, readStatus) {
-	const id = crypto.randomUUID();
-	lib[id] = new Book(title, author, pages, readStatus, id);
+	const hash = crypto.randomUUID();
+	lib[hash] = new Book(title, author, pages, readStatus, hash);
 }
 
-function removeBook(id) {
-	lib[id].row.remove();
-	delete lib[id];
+function removeBook(hash) {
+	lib[hash].row.remove();
+	delete lib[hash];
 }
 
-function appendRow(id) {
+function appendRow(hash) {
 	const tbody = document.querySelector("tbody");
 	const appendCell = (key, r, type = "td") => {
 		const cell = document.createElement(`${type}`);
@@ -38,7 +38,7 @@ function appendRow(id) {
 
 	// create new table row element
 	const row = document.createElement("tr");
-	row.setAttribute("id", id);
+	row.setAttribute("data-hash", hash);
 
 	// add title cell w/ scope attribute
 	const title = appendCell("title", row, "th");
@@ -56,13 +56,13 @@ function appendRow(id) {
 	edit.setAttribute("command", "show-modal");
 	edit.setAttribute("commandfor", "book-form");
 	edit.addEventListener("click", (e) => {
-		updateForm(edit.closest("tr").getAttribute("id"));
+		updateForm(edit.closest("tr").getAttribute("data-hash"));
 	});
 	actions.appendChild(edit);
 
 	const remove = document.createElement("button");
 	remove.textContent = "Delete";
-	remove.addEventListener("click", () => removeBook(remove.closest("tr").getAttribute("id")));
+	remove.addEventListener("click", () => removeBook(remove.closest("tr").getAttribute("data-hash")));
 	actions.appendChild(remove);
 
 	// append row to table

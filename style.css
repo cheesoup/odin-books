@@ -23,8 +23,9 @@ body {
 }
 
 table {
-	border-collapse: collapse;
+	width: 66vw;
 	border: 1px var(--green-0) solid;
+	border-collapse: collapse;
 }
 
 td, th {
@@ -46,20 +47,9 @@ dialog {
 }
 
 form {
-/*	display: none;*/
-	display: grid;
-	grid-template-columns: 12ch 12ch;
+	display: flex;
+	flex-direction: column;
 	gap: 10px;
-}
-
-form > * {
-	grid-column: span 2;
-}
-
-form label[for="read"], 
-form input[id="read"],
-form button {
-	grid-column: span 1;
 }
 
 button, input[type="submit"] {
