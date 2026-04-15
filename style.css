@@ -35,19 +35,27 @@ dialog {
 	margin: 35vh auto;
 }
 
-form#addBook {
+form {
 /*	display: none;*/
 	display: grid;
 	grid-template-columns: 12ch 12ch;
 	gap: 10px;
 }
 
-form#addBook > * {
+form > * {
 	grid-column: span 2;
 }
 
-form#addBook label[for="read"], 
-form#addBook input[id="read"],
-form#addBook button {
+form label[for="read"], 
+form input[id="read"],
+form button {
 	grid-column: span 1;
-}	
+}
+
+button {
+	padding: 5px;
+}
+
+dialog {
+	padding: 25px;
+}

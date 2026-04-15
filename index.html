@@ -16,7 +16,7 @@
 					<th scope="col">Author</th>
 					<th scope="col">Page Count</th>
 					<th scope="col">Been read</th>
-					<th scope="col">Delete entry</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,9 +26,9 @@
 		<div class="submit">
 		</div>
 
-		<button command="show-modal" commandfor="edit-book">Add Book</button>
-		<dialog id="edit-book" popover closedby="any">
-			<form id="addBook">
+		<button command="show-modal" commandfor="book-form">Add Book</button>
+		<dialog id="book-form" popover closedby="any">
+			<form>
 				<label for="title">Title</label>
 				<input id="title" name="title" type="text" minlength="1" />
 	
@@ -38,11 +38,14 @@
 				<label for="pages">Page Count</label>
 				<input id="pages" name="pages" type="number" min="1" value="1" />
 	
-				<label for="read">Read</label>
-				<input id="read" name="read" type="checkbox" />
+				<label for="readStatus">Status</label>
+				<select id="readStatus" name="readStatus">
+					<option value="0">Planned</option>
+					<option value="1">Reading</option>
+					<option value="2">Competed</option>
+				</option>
 	
 				<input type="submit" value="Append to list" />
-				<!-- <button>Cancel</button> -->
 			</form>
 		</dialog>
 	</body>
