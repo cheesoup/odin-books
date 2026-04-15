@@ -1,7 +1,16 @@
+:root {
+	--green-0: #1D261D;
+	--green-1: #4F664F;
+	--green-2: #80A580;
+	--green-3: #B2E5B1;
+	--green-4: #BAEFB9;
+}
+
 * {
 	padding: 0;
 	margin: 0;
 	font-family: "Helvetica", "Verdana", sans-serif;
+	color: var(--green-0);
 }
 
 body {
@@ -10,25 +19,26 @@ body {
 	align-items: center;
 	gap: 25px;
 	padding-top: 25px;
+	background-color: var(--green-1);
 }
 
 table {
 	border-collapse: collapse;
-	border: 1px #000 solid;
+	border: 1px var(--green-0) solid;
 }
 
 td, th {
 	text-align: center;
-	border: 1px solid #000;
+	border: 1px solid var(--green-0);
 	padding: 10px 20px;
 }
 
-tr:nth-child(even) td {
-	background-color: rgb(250 250 250);
+thead > tr, tr:nth-child(even) {
+	background-color: var(--green-2);
 }
 
-tr:nth-child(odd) td {
-	background-color: rgb(245 245 245);
+tr:nth-child(odd):not(thead > tr) {
+	background-color: var(--green-3);
 }
 
 dialog {
@@ -52,10 +62,33 @@ form button {
 	grid-column: span 1;
 }
 
-button {
-	padding: 5px;
+button, input[type="submit"] {
+	position: relative;
+	padding: 10px;
+	margin: 5px;
+	border: 1px #1D261D solid;
+	background-color: var(--green-4);
+	box-shadow: 2px 2px var(--green-0);
+}
+
+button:hover, input[type="submit"]:hover {
+	left: 2px;
+	top: 2px;
+	box-shadow: none;
+	cursor: pointer;
 }
 
 dialog {
 	padding: 25px;
+	background-color: var(--green-3);
+}
+
+input[type="text"], input[type="number"], select {
+	padding: 5px;
+	border: 1px #1D261D solid;
+	background-color: var(--green-4);
+}
+
+input[type="text"]:focus, input[type="number"]:focus, select:focus {
+	outline: 1px var(--green-1) solid;
 }
