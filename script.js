@@ -1,6 +1,26 @@
 const lib = {};
 const statusEnum = [ "Planned", "Reading", "Completed" ];
 
+class Book {
+	constructor(title, author, pages, readStatus, hash) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.readStatus = readStatus;
+		this.row = appendRow(hash);
+
+		this.update();
+	}
+
+	update() {
+		this.row.querySelector(".title").textContent = this.title;
+		this.row.querySelector(".author").textContent = this.author;
+		this.row.querySelector(".pages").textContent = this.pages;
+		this.row.querySelector(".readStatus").textContent = this.readStatus;
+	}
+}
+
+/*
 function Book(title, author, pages, readStatus, hash) {
 	this.title = title;
 	this.author = author;
@@ -16,6 +36,7 @@ function Book(title, author, pages, readStatus, hash) {
 	}
 	this.update();
 }
+*/
 
 function addBook (title, author, pages, readStatus) {
 	const hash = crypto.randomUUID();
